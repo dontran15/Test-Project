@@ -64,7 +64,9 @@ public class SwerveModuleSim implements SwerveModuleIO {
     /** Run the drive motor at the specified voltage. */
     @Override
     public void setDesiredState(SwerveModuleState state) {
-        SwerveModuleState.optimize(state, state.angle);
+        theoreticalState = state;
+        
+       state = SwerveModuleState.optimize(state, state.angle);
 
         double driveVolt = drivePID.calculate(driveSim.getAngularVelocityRadPerSec() * Constants.Swerve.wheelDiameterM / 2,
                 state.speedMetersPerSecond) + driveFeedforward.calculate(state.speedMetersPerSecond);
@@ -73,8 +75,6 @@ public class SwerveModuleSim implements SwerveModuleIO {
 
         driveSim.setInputVoltage(driveVolt);
         turningSim.setInputVoltage(turnVolt);
-
-        theoreticalState = state;
     }
 
     /** Run the turn motor at the specified voltage. */
