@@ -40,7 +40,7 @@ public class SwerveModuleSim implements SwerveModuleIO {
         data.drivePositionM = drivePositionM;
         data.driveVelocityMPerSec = driveSim.getAngularVelocityRadPerSec() * Constants.Swerve.wheelDiameterM / 2;
         data.driveAppliedVolts = driveAppliedVolts;
-        data.driveCurrentAmps = driveSim.getCurrentDrawAmps();
+        data.driveCurrentAmps = Math.abs(driveSim.getCurrentDrawAmps());
 
         double angleDiff = turningSim.getAngularVelocityRadPerSec() * 0.02;
         while (turnPositionRad < 0) {
@@ -54,7 +54,7 @@ public class SwerveModuleSim implements SwerveModuleIO {
         data.turnPositionRad = turnPositionRad;
         data.turnVelocityRadPerSec = turningSim.getAngularVelocityRadPerSec();
         data.turnAppliedVolts = turnAppliedVolts;
-        data.turnCurrentAmps = turningSim.getCurrentDrawAmps();
+        data.turnCurrentAmps = Math.abs(turningSim.getCurrentDrawAmps());
         data.turnPositionRad = turningSim.getAngularVelocityRadPerSec() * 0.02;
 
         data.theoreticalState = theoreticalState;
